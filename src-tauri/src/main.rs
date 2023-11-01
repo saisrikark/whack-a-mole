@@ -2,20 +2,13 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 #[tauri::command]
-fn result(row: i32, column: i32, element: i32) -> i32 {
-    println!("row {} column {} element {}", row, column, element);
-    1
-}
-
-#[tauri::command]
-fn grid(rows: usize, columns: usize) -> Vec<Vec<i32>> {
-    let matrix = vec![vec![0; columns]; rows*columns];
-    matrix
+fn result(_row: i32, _column: i32, element: i32) -> i32 {
+    element
 }
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![result, grid])
+        .invoke_handler(tauri::generate_handler![result])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
